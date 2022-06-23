@@ -1,6 +1,7 @@
-from tkinter import *
-from PIL import ImageTk, Image
 import re
+from tkinter import Tk, StringVar, Label, Button, Entry
+import tkinter as tk
+from PIL import ImageTk, Image
 from EIA96 import index, multipler
 
 patterns = ('^\d{4}$', '^\d{3}$', '^[R]+\d{1,3}$', '^\d{,2}[R]\d{1,3}$',
@@ -12,7 +13,7 @@ types = ('4digits', '3digits', 'R+digits', 'digitsRdigits',
 
 def calculate(e=None):
     r_code = entry.get().upper().strip()
-    entry.delete(0, END)
+    entry.delete(0, tk.END)
     entry.insert(0, r_code)
     r_type = resistorCodeTypeCheker(r_code)
     if r_type is None:
@@ -29,7 +30,7 @@ def calculate(e=None):
 
 
 def clearEntry():
-    entry.delete(0, END)
+    entry.delete(0, tk.END)
     r_label.configure(text='')
     output_label.configure(text='')
     message_label.configure(text='Enter Resistor Code:', fg='black')
@@ -48,7 +49,7 @@ def unitAbbreviationsHandler(value):
 
 
 def entryMaxCharacters():
-    entry.delete(4, END)
+    entry.delete(4, tk.END)
 
 
 def resistorCodeTypeCheker(r_code):
@@ -101,7 +102,7 @@ main_window.bind('<Return>', calculate)
 main_window.title("SMD Code Calculator")
 ico = ImageTk.PhotoImage(Image.open("icon.ico"))
 main_window.wm_iconphoto(False, ico)
-output_label = Label(font=('Courier', 16), justify=CENTER)
+output_label = Label(font=('Courier', 16), justify=tk.CENTER)
 resistor_image = ImageTk.PhotoImage(Image.open("resistor.png"))
 r_image = Label(image=resistor_image)
 autor_label = Label(text='by CTL', font=('Courier', 8), fg='gray')
@@ -109,7 +110,7 @@ message_label = Label(text='Enter Resistor Code:', font=('Courier', 16))
 clear_button = Button(text='Clear', font=('Courier', 16), command=clearEntry)
 calc_button = Button(text='Calculate', font=('Courier', 16), command=calculate)
 entry = Entry(font=('Courier', 21), width=4,  bg='black', fg='white',
-              relief=FLAT, textvariable=entry_text, justify=CENTER)
+              relief=tk.FLAT, textvariable=entry_text, justify=tk.CENTER)
 
 # Window elements placement
 clear_button.place(x=107, y=175)
